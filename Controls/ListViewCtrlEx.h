@@ -59,16 +59,15 @@ public:
         m_font.CreateFontIndirect( &lf );
     }
     
-    void Attach( HWND hWnd )
+    void OwnerDraw( )
     {
-        SubclassWindow( hWnd );
         ModifyStyle( 0, LVS_OWNERDRAWFIXED );
     }
     
-    //     void SetItemHeight( UINT uHeight )
-    //     {
-    //         m_uItemHeight = uHeight;
-    //     }
+	void SetItemHeight( UINT uHeight )
+	{
+		m_uItemHeight = uHeight;
+	}
     
     LRESULT OnMouseMove( UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/ )
     {
@@ -76,7 +75,7 @@ public:
         csTME.cbSize = sizeof( csTME );
         csTME.dwFlags = TME_LEAVE | TME_HOVER;
         csTME.hwndTrack = m_hWnd;
-        csTME.dwHoverTime = 10;
+        csTME.dwHoverTime = 5;
         ::_TrackMouseEvent( &csTME );
         return 0;
     }

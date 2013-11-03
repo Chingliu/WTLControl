@@ -49,13 +49,14 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lp
 	::DefWindowProc(NULL, 0, 0, 0L);
 
 	AtlInitCommonControls(ICC_BAR_CLASSES);	// add flags to support other controls
-
+	HMODULE hRichEdit=::LoadLibrary(CRichEditCtrl::GetLibraryName()); 
 	hRes = _Module.Init(NULL, hInstance);
 	ATLASSERT(SUCCEEDED(hRes));
 			
 	int nRet = Run(lpstrCmdLine, nCmdShow);
 
 	_Module.Term();
+	::FreeLibrary(hRichEdit);
 	::CoUninitialize();
 
 	return nRet;

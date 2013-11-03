@@ -124,6 +124,7 @@
   <ItemGroup>
     <ClInclude Include="AboutDlg.h" />
     <ClInclude Include="Controls\AppBar.h" />
+    <ClInclude Include="Controls\CheckBox.h" />
     <ClInclude Include="Controls\ColorButton.h" />
     <ClInclude Include="Controls\ListViewCtrlEx.h" />
     <ClInclude Include="Controls\StaticEx.h" />

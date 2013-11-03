@@ -7,6 +7,7 @@
 #include "Controls\ColorButton.h"
 #include "Controls\AppBar.h"
 #include "Controls\StaticEx.h"
+#include "Controls\CheckBox.h"
 
 class CMainDlg : public CDialogImpl<CMainDlg>, public CUpdateUI<CMainDlg>,
     public CMessageFilter, public CIdleHandler, public CWinDataExchange<CMainDlg>,
@@ -21,6 +22,7 @@ private:
     CStaticEx m_staticEx1;
     CStaticEx m_staticEx2;
     CStaticEx m_staticExHyperLink;
+    CCheckBox m_btnCheck;
 public:
     enum { IDD = IDD_MAINDLG };
     
@@ -51,9 +53,14 @@ public:
     END_MSG_MAP()
     
     BEGIN_DDX_MAP( CMainDlg )
+    DDX_CONTROL( IDC_STATIC_1, m_staticEx1 )
+    DDX_CONTROL( IDC_STATIC_2, m_staticEx2 )
+    DDX_CONTROL( IDC_STATIC_HYPERLINK, m_staticExHyperLink )
+    DDX_CONTROL( IDC_LIST1, m_listViewCtrlEx )
     DDX_CONTROL( IDC_BUTTON1, m_btnColor )
     DDX_CONTROL( IDC_STATICLINK, m_hyperLink )
     DDX_CONTROL( IDC_BUTTON2, m_bmpBtn )
+    DDX_CONTROL( IDC_CHECK1, m_btnCheck )
     END_DDX_MAP()
     
     // Handler prototypes (uncomment arguments if needed):
@@ -139,9 +146,8 @@ public:
     void InitControls()
     {
         // ListViewCtrlEx
-        m_listViewCtrlEx.Attach( GetDlgItem( IDC_LIST1 ) );
-        //		m_listViewCtrlEx.SetItemHeight(180);
-        
+        m_listViewCtrlEx.OwnerDraw();
+        //   		m_listViewCtrlEx.SetItemHeight(180);
         m_listViewCtrlEx.SetExtendedListViewStyle( LVS_EX_FULLROWSELECT | LVS_EX_GRIDLINES, 0 );
         m_listViewCtrlEx.InsertColumn( 0, _T( "Packet" ), LVCFMT_LEFT, 50 );
         m_listViewCtrlEx.InsertColumn( 1, _T( "Source" ), LVCFMT_LEFT, 150 );
@@ -178,18 +184,21 @@ public:
         // 		DockAppBar(APPBAR_DOCKING_LEFT);
         
         // CStaticEx
-        m_staticEx1.Attach( GetDlgItem( IDC_STATIC_1 ) );
-        m_staticEx2.Attach( GetDlgItem( IDC_STATIC_2 ) );
-        m_staticExHyperLink.Attach( GetDlgItem( IDC_STATIC_HYPERLINK ) );
-        
+        m_staticEx1.OwnerDraw();
         m_staticEx1.SetBkColor( RGB( 255, 255, 0 ) );
         m_staticEx1.SetTextColor( RGB( 255, 0, 0 ) );
         
+        m_staticEx2.OwnerDraw();
         m_staticEx2.SetBkColor( RGB( 200, 0, 200 ) );
         m_staticEx2.SetTextColor( RGB( 255, 192, 255 ) );
         
+        m_staticExHyperLink.OwnerDraw();
         m_staticExHyperLink.SetBkColor( RGB( 192, 255, 0 ) );
         m_staticExHyperLink.SetTextColor( RGB( 0, 0, 255 ) );
         
+		// CCheckBox
+        m_btnCheck.OwnerDraw();
+        m_btnCheck.SetCheck( BST_CHECKED );
+        m_btnCheck.SetTextColor( RGB( 255, 0, 0 ) );
     }
 };
