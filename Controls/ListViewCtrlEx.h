@@ -15,10 +15,10 @@ private:
     COLORREF m_clrText;	// 文本颜色
 public:
     BEGIN_MSG_MAP( CListViewCtrlEx )
+    CHAIN_MSG_MAP_ALT( COwnerDraw<CListViewCtrlEx>, 1 )
     MESSAGE_HANDLER( WM_MOUSEMOVE, OnMouseMove )
     MESSAGE_HANDLER( WM_MOUSEHOVER, OnMouseHover )
     MESSAGE_HANDLER( WM_MOUSELEAVE, OnMouseLeave )
-    CHAIN_MSG_MAP_ALT( COwnerDraw<CListViewCtrlEx>, 1 )
     DEFAULT_REFLECTION_HANDLER()
     END_MSG_MAP()
     
@@ -27,7 +27,7 @@ public:
         //        m_bMouseHover = FALSE;
         m_iHoverIndex = -1;
         m_iPreHoverIndex = -1;
-        m_uItemHeight = 29;
+        m_uItemHeight = 129;
         m_clrItemSelected =::GetSysColor( COLOR_HIGHLIGHT );
         m_clrItemNormal =::GetSysColor( COLOR_WINDOW );
         m_clrText =::GetSysColor( COLOR_BTNTEXT );
@@ -115,15 +115,16 @@ public:
     
     void DrawItem( LPDRAWITEMSTRUCT lpDrawItemStruct )
     {
-        CMemoryDC memDC( lpDrawItemStruct->hDC, lpDrawItemStruct->rcItem );
+        CRect rcItem( lpDrawItemStruct->rcItem );
+        CMemoryDC memDC( lpDrawItemStruct->hDC, rcItem );
         
         // 正常状态
-        memDC.FillSolidRect( &lpDrawItemStruct->rcItem, m_clrItemNormal );
+        memDC.FillSolidRect( &rcItem, m_clrItemNormal );
         
         // 鼠标划过状态
         if ( lpDrawItemStruct->itemID == m_iHoverIndex && ( -1 != m_iHoverIndex ) )
         {
-            memDC.FillSolidRect( &lpDrawItemStruct->rcItem, RGB( 255, 0, 0 ) );
+            memDC.FillSolidRect( &rcItem, RGB( 255, 0, 0 ) );
         }
         
         // 选择状态
@@ -131,7 +132,7 @@ public:
         {
             if ( ODS_SELECTED == ( lpDrawItemStruct->itemState & ODS_SELECTED ) )
             {
-                memDC.FillSolidRect( &lpDrawItemStruct->rcItem, m_clrItemSelected );
+                memDC.FillSolidRect( &rcItem, m_clrItemSelected );
             }
         }
         
@@ -157,7 +158,14 @@ public:
     
     void MeasureItem( LPMEASUREITEMSTRUCT lpMeasureItemStruct )
     {
-        lpMeasureItemStruct->itemHeight = m_uItemHeight;
+        if ( lpMeasureItemStruct->CtlType != ODT_MENU )
+        {
+            lpMeasureItemStruct->itemHeight = m_uItemHeight;
+        }
+        else
+        {
+            lpMeasureItemStruct->itemHeight = ::GetSystemMetrics( SM_CYMENU );
+        }
     }
     
     int CompareItem( LPCOMPAREITEMSTRUCT lpCompareItemStruct )

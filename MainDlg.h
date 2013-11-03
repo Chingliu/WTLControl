@@ -6,6 +6,7 @@
 #include "Controls\ListViewCtrlEx.h"
 #include "Controls\ColorButton.h"
 #include "Controls\AppBar.h"
+#include "Controls\StaticEx.h"
 
 class CMainDlg : public CDialogImpl<CMainDlg>, public CUpdateUI<CMainDlg>,
     public CMessageFilter, public CIdleHandler, public CWinDataExchange<CMainDlg>,
@@ -17,6 +18,9 @@ private:
     CHyperLink m_hyperLink;
     CBitmapButton m_bmpBtn;
     CImageList m_imgList;
+    CStaticEx m_staticEx1;
+    CStaticEx m_staticEx2;
+    CStaticEx m_staticExHyperLink;
 public:
     enum { IDD = IDD_MAINDLG };
     
@@ -35,6 +39,7 @@ public:
     END_UPDATE_UI_MAP()
     
     BEGIN_MSG_MAP( CMainDlg )
+    NOTIFY_HANDLER( IDC_BUTTON1, CPN_SELENDOK, OnColorSel )
     MESSAGE_HANDLER( WM_INITDIALOG, OnInitDialog )
     MESSAGE_HANDLER( WM_DESTROY, OnDestroy )
     COMMAND_ID_HANDLER( ID_APP_ABOUT, OnAppAbout )
@@ -42,7 +47,7 @@ public:
     COMMAND_ID_HANDLER( IDCANCEL, OnCancel )
     COMMAND_ID_HANDLER( IDC_BUTTON2, OnBmpBtn )
     REFLECT_NOTIFICATIONS()
-    CHAIN_MSG_MAP( CAppBar<CMainDlg> )
+    //    CHAIN_MSG_MAP( CAppBar<CMainDlg> )
     END_MSG_MAP()
     
     BEGIN_DDX_MAP( CMainDlg )
@@ -124,6 +129,13 @@ public:
         return 0;
     }
     
+    LRESULT OnColorSel( int /*idCtrl*/, LPNMHDR pnmh, BOOL& /*bHandled*/ )
+    {
+        NMCOLORBUTTON* pNmClr = ( NMCOLORBUTTON* )pnmh;
+        m_staticEx1.SetBkColor( pNmClr->clr );
+        return 0;
+    }
+    
     void InitControls()
     {
         // ListViewCtrlEx
@@ -147,14 +159,14 @@ public:
             m_listViewCtrlEx.SetItemText( id, 2, s );
         }
         
-        // 颜色选择按钮
+        // 颜色选择按钮 CColorButton
         m_btnColor.SetColor( RGB( 255, 0, 0 ) );
         
-        // 超链接
+        // 超链接 CHyperLink
         m_hyperLink.SetHyperLink( _T( "www.163.com" ) );
         
-        // 位图按钮
-        m_imgList.Create( IDB_BITMAP1, 45, 1, 0 );
+        // 位图按钮 CBitmapButton
+        m_imgList.Create( IDB_BITMAP1, 100, 1, 0 );
         m_bmpBtn.SetImageList( m_imgList );
         m_bmpBtn.SetBitmapButtonExtendedStyle( BMPBTN_HOVER );
         m_bmpBtn.SetImages( 0, 1, 2, 3 );
@@ -164,5 +176,20 @@ public:
         // 		SetAutoHide(TRUE);
         // 		SetKeepSize(TRUE);
         // 		DockAppBar(APPBAR_DOCKING_LEFT);
+        
+        // CStaticEx
+        m_staticEx1.Attach( GetDlgItem( IDC_STATIC_1 ) );
+        m_staticEx2.Attach( GetDlgItem( IDC_STATIC_2 ) );
+        m_staticExHyperLink.Attach( GetDlgItem( IDC_STATIC_HYPERLINK ) );
+        
+        m_staticEx1.SetBkColor( RGB( 255, 255, 0 ) );
+        m_staticEx1.SetTextColor( RGB( 255, 0, 0 ) );
+        
+        m_staticEx2.SetBkColor( RGB( 200, 0, 200 ) );
+        m_staticEx2.SetTextColor( RGB( 255, 192, 255 ) );
+        
+        m_staticExHyperLink.SetBkColor( RGB( 192, 255, 0 ) );
+        m_staticExHyperLink.SetTextColor( RGB( 0, 0, 255 ) );
+        
     }
 };

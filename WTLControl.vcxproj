@@ -126,6 +126,7 @@
     <ClInclude Include="Controls\AppBar.h" />
     <ClInclude Include="Controls\ColorButton.h" />
     <ClInclude Include="Controls\ListViewCtrlEx.h" />
+    <ClInclude Include="Controls\StaticEx.h" />
     <ClInclude Include="MainDlg.h" />
     <ClInclude Include="MemLeakCheck.h" />
     <ClInclude Include="resource.h" />
@@ -135,6 +136,7 @@
     <ResourceCompile Include="WTLControl.rc" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="res\cmb.bmp" />
     <Image Include="res\darquid.bmp" />
     <Image Include="res\WTLControl.ico" />
   </ItemGroup>

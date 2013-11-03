@@ -53,6 +53,9 @@
     <ClInclude Include="Controls\AppBar.h">
       <Filter>Controls</Filter>
     </ClInclude>
+    <ClInclude Include="Controls\StaticEx.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="WTLControl.rc">
@@ -64,6 +67,9 @@
       <Filter>Resource Files</Filter>
     </Image>
     <Image Include="res\darquid.bmp">
+      <Filter>Resource Files</Filter>
+    </Image>
+    <Image Include="res\cmb.bmp">
       <Filter>Resource Files</Filter>
     </Image>
   </ItemGroup>

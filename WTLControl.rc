@@ -24,7 +24,7 @@ LANGUAGE LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED
 // Bitmap
 //
 
-IDB_BITMAP1             BITMAP                  "res\\darquid.bmp"
+IDB_BITMAP1             BITMAP                  "res\\cmb.bmp"
 #endif    // 中文(简体，中国) resources
 /////////////////////////////////////////////////////////////////////////////
 
@@ -91,13 +91,14 @@ STYLE DS_SETFONT | DS_FIXEDSYS | WS_MINIMIZEBOX | WS_CAPTION | WS_SYSMENU
 CAPTION "WTLControl"
 FONT 8, "MS Shell Dlg", 0, 0, 0x0
 BEGIN
-    DEFPUSHBUTTON   "OK",IDOK,458,7,50,14
-    PUSHBUTTON      "Cancel",IDCANCEL,458,24,50,14
     PUSHBUTTON      "&About",ID_APP_ABOUT,458,273,50,14
-    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_SINGLESEL | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,7,275,125
-    PUSHBUTTON      "Button1",IDC_BUTTON1,7,139,56,18
-    LTEXT           "www.163.com",IDC_STATICLINK,74,144,45,12
-    PUSHBUTTON      "Button2",IDC_BUTTON2,131,140,61,17
+    CONTROL         "",IDC_LIST1,"SysListView32",LVS_REPORT | LVS_SHOWSELALWAYS | LVS_ALIGNLEFT | WS_BORDER | WS_TABSTOP,7,162,275,125
+    PUSHBUTTON      "CColorButton",IDC_BUTTON1,17,39,56,18
+    CTEXT           "www.163.com",IDC_STATICLINK,178,39,45,18,SS_CENTERIMAGE
+    PUSHBUTTON      "CBitmapButton",IDC_BUTTON2,95,39,61,18,BS_CENTER
+    CONTROL         "CColorButton",IDC_STATIC_1,"Static",SS_LEFTNOWORDWRAP | SS_CENTERIMAGE | WS_GROUP,20,18,52,13
+    LTEXT           "CBitmapButton",IDC_STATIC_2,100,18,52,13,SS_CENTERIMAGE
+    CONTROL         "CHyperLink",IDC_STATIC_HYPERLINK,"Static",SS_LEFTNOWORDWRAP | SS_CENTERIMAGE | WS_GROUP,180,18,52,13
 END
 
 
