@@ -1,55 +1,33 @@
 #pragma once
 
-class CCheckBox : public CWindowImpl<CCheckBox, CButton>, public COwnerDraw<CCheckBox>
+class CTreeCtrlEx : public CWindowImpl<CTreeCtrlEx, CTreeViewCtrl>, public COwnerDraw<CTreeCtrlEx>
 {
 private:
     CFontHandle m_font;		// 字体
     COLORREF m_clrText;	// 文本颜色
     COLORREF m_clrBk;	// 背景颜色
-    BOOL m_bChecked;
 public:
-    BEGIN_MSG_MAP_EX( CCheckBox )
-    MSG_WM_LBUTTONDOWN( OnLButtonDown )
-    CHAIN_MSG_MAP_ALT( COwnerDraw<CCheckBox>, 1 )
+    BEGIN_MSG_MAP_EX( CTreeCtrlEx )
+    CHAIN_MSG_MAP_ALT( COwnerDraw<CTreeCtrlEx>, 1 )
     DEFAULT_REFLECTION_HANDLER()
     END_MSG_MAP()
     
-    CCheckBox()
+    CTreeCtrlEx()
     {
-        m_bChecked = FALSE;
         m_clrBk =::GetSysColor( COLOR_BTNFACE );
         m_clrText =::GetSysColor( COLOR_BTNTEXT );
-		SetFont( 12, _T( "宋体" ) );
+        SetFont( 12, _T( "宋体" ) );
     }
     
-    virtual ~CCheckBox()
+    virtual ~CTreeCtrlEx()
     {
     
-    }
-    
-    LRESULT OnLButtonDown( UINT uint, CPoint pt )
-    {
-        m_bChecked = !m_bChecked;
-        SetCheck( m_bChecked );
-        return 0;
     }
     
     BOOL OwnerDraw()
     {
-        ModifyStyle( 0, BS_OWNERDRAW );   
+        //		ModifyStyle( 0, LVS_OWNERDRAW );
         return TRUE;
-    }
-    
-    void SetCheck( BOOL bCheck )
-    {
-        m_bChecked = bCheck;
-        InvalidateRect( NULL );
-    }
-    
-    void SetTextColor( COLORREF clrText )
-    {
-        m_clrText = clrText;
-        InvalidateRect( NULL );
     }
     
     void SetFont( int iFontSize, LPCTSTR lpszFontName, BOOL bItalic = FALSE, BOOL bUnderline = FALSE )
@@ -85,8 +63,8 @@ public:
         CRect rcCheck;
         rcCheck.SetRect( 0, 0, rcItem.Height(), rcItem.Height() );
         rcCheck.DeflateRect( 1, 1 );
-        UINT uState = DFCS_BUTTONCHECK;
-        if ( m_bChecked )
+        UINT uState = DFCS_BUTTONRADIO | DFCS_BUTTONRADIOIMAGE;
+        if ( ODS_SELECTED == ( ODS_SELECTED & lpDrawItemStruct->itemState ) )
         {
             uState |= DFCS_CHECKED;
         }
@@ -121,7 +99,6 @@ public:
     {
         // default - nothing
     }
-    
 protected:
 private:
 };

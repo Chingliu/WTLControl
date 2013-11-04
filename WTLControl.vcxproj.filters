@@ -27,6 +27,15 @@
     <ClCompile Include="Controls\ColorButton.cpp">
       <Filter>Controls</Filter>
     </ClCompile>
+    <ClCompile Include="Controls\DUIButton.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\SkinManager.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
+    <ClCompile Include="Controls\SkinWndHelper.cpp">
+      <Filter>Controls</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="stdafx.h">
@@ -57,6 +66,21 @@
       <Filter>Controls</Filter>
     </ClInclude>
     <ClInclude Include="Controls\CheckBox.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\RadioButton.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\CTreeCtrlEx.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\DUIButton.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\SkinManager.h">
+      <Filter>Controls</Filter>
+    </ClInclude>
+    <ClInclude Include="Controls\SkinWndHelper.h">
       <Filter>Controls</Filter>
     </ClInclude>
   </ItemGroup>

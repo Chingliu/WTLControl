@@ -8,12 +8,17 @@
 #include "Controls\AppBar.h"
 #include "Controls\StaticEx.h"
 #include "Controls\CheckBox.h"
+#include "Controls\RadioButton.h"
+#include "Controls\CTreeCtrlEx.h"
+#include "Controls\SkinWndHelper.h"
+#include "Controls\SkinManager.h"
 
 class CMainDlg : public CDialogImpl<CMainDlg>, public CUpdateUI<CMainDlg>,
     public CMessageFilter, public CIdleHandler, public CWinDataExchange<CMainDlg>,
     public CAppBar<CMainDlg>
 {
 private:
+	CSkinWndHelper m_SkinWndHelper;
     CListViewCtrlEx m_listViewCtrlEx;
     CColorButton m_btnColor;
     CHyperLink m_hyperLink;
@@ -23,6 +28,8 @@ private:
     CStaticEx m_staticEx2;
     CStaticEx m_staticExHyperLink;
     CCheckBox m_btnCheck;
+	CRadioButton m_radioButton;
+	CTreeCtrlEx m_treeCtrlEx;
 public:
     enum { IDD = IDD_MAINDLG };
     
@@ -61,6 +68,8 @@ public:
     DDX_CONTROL( IDC_STATICLINK, m_hyperLink )
     DDX_CONTROL( IDC_BUTTON2, m_bmpBtn )
     DDX_CONTROL( IDC_CHECK1, m_btnCheck )
+	DDX_CONTROL(IDC_RADIO1,m_radioButton)
+	DDX_CONTROL(IDC_TREE1,m_treeCtrlEx)
     END_DDX_MAP()
     
     // Handler prototypes (uncomment arguments if needed):
@@ -86,6 +95,27 @@ public:
         pLoop->AddMessageFilter( this );
         pLoop->AddIdleHandler( this );
         
+		CRect rcNCButton;
+		GetWindowRect(&rcNCButton);
+		rcNCButton.OffsetRect( -rcNCButton.left, -rcNCButton.top);
+
+		rcNCButton.left+=200;
+		rcNCButton.top+=10;
+		rcNCButton.right = rcNCButton.left + 73;
+		rcNCButton.bottom = rcNCButton.top + 25;
+		Image *pImage = CSkinManager::GetInstance()->GetSkinItem(_T("Button.png"));
+
+		m_SkinWndHelper.Attach(m_hWnd);
+		m_SkinWndHelper.AddTitleButton(&rcNCButton,pImage,3,10,_T("标题按钮"));
+
+		rcNCButton.OffsetRect(80,0);
+		m_SkinWndHelper.AddTitleButton(&rcNCButton,pImage,3,11,_T("标题按钮2"));
+
+		rcNCButton.OffsetRect(80,0);
+		m_SkinWndHelper.AddTitleButton(&rcNCButton,pImage,3,12,_T("标题按钮3"));
+
+		rcNCButton.OffsetRect(80,0);
+		m_SkinWndHelper.AddTitleButton(&rcNCButton,pImage,3,13,_T("关于"));
         UIAddChildWindowContainer( m_hWnd );
         
         InitControls();
@@ -126,6 +156,7 @@ public:
     
     void CloseDialog( int nVal )
     {
+		m_SkinWndHelper.Detach();
         DestroyWindow();
         ::PostQuitMessage( nVal );
     }
@@ -200,5 +231,14 @@ public:
         m_btnCheck.OwnerDraw();
         m_btnCheck.SetCheck( BST_CHECKED );
         m_btnCheck.SetTextColor( RGB( 255, 0, 0 ) );
+
+		// CRadioButton
+		m_radioButton.OwnerDraw();
+		m_radioButton.SetTextColor(RGB(0,255,0));
+
+		// CTreeCtrlEx
+		m_treeCtrlEx.OwnerDraw();
+		HTREEITEM hRoot=m_treeCtrlEx.InsertItem(_T("公司"),NULL,NULL);
+		m_treeCtrlEx.InsertItem(_T("研发部"),hRoot,NULL);
     }
 };

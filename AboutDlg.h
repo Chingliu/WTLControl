@@ -3,9 +3,12 @@
 /////////////////////////////////////////////////////////////////////////////
 
 #pragma once
+#include "Controls\SkinWndHelper.h"
 
 class CAboutDlg : public CDialogImpl<CAboutDlg>
 {
+private:
+	CSkinWndHelper m_SkinHelper;
 public:
 	enum { IDD = IDD_ABOUTBOX };
 
@@ -23,11 +26,13 @@ public:
 	LRESULT OnInitDialog(UINT /*uMsg*/, WPARAM /*wParam*/, LPARAM /*lParam*/, BOOL& /*bHandled*/)
 	{
 		CenterWindow(GetParent());
+		m_SkinHelper.Attach(m_hWnd);
 		return TRUE;
 	}
 
 	LRESULT OnCloseCmd(WORD /*wNotifyCode*/, WORD wID, HWND /*hWndCtl*/, BOOL& /*bHandled*/)
 	{
+		m_SkinHelper.Detach();
 		EndDialog(wID);
 		return 0;
 	}

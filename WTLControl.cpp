@@ -15,6 +15,23 @@
 
 CAppModule _Module;
 
+CString GetModulePath()
+{
+	TCHAR s_buf[MAX_PATH];
+	s_buf[0] = 0x0;
+	DWORD n_result = ::GetModuleFileName(NULL, s_buf, sizeof(TCHAR) * MAX_PATH);
+	TCHAR	s_drive[MAX_PATH];
+	s_drive[0] = 0x0;
+	TCHAR s_dir[MAX_PATH];
+	s_dir[0] = 0x0;
+	/*errno_t n_err_no =*/ 
+	_tsplitpath(s_buf, s_drive, s_dir, NULL, NULL);
+	//assert(n_err_no == 0);
+	_tcscpy_s(s_buf, s_drive);
+	_tcscat_s(s_buf, s_dir);
+	return CString(s_buf);
+}
+
 int Run(LPTSTR /*lpstrCmdLine*/ = NULL, int nCmdShow = SW_SHOWDEFAULT)
 {
 	CMessageLoop theLoop;
@@ -50,6 +67,7 @@ int WINAPI _tWinMain(HINSTANCE hInstance, HINSTANCE /*hPrevInstance*/, LPTSTR lp
 
 	AtlInitCommonControls(ICC_BAR_CLASSES);	// add flags to support other controls
 	HMODULE hRichEdit=::LoadLibrary(CRichEditCtrl::GetLibraryName()); 
+	CSkinManager::GetInstance()->SetSkinPath(GetModulePath()+_T("Skins\\Default\\"));
 	hRes = _Module.Init(NULL, hInstance);
 	ATLASSERT(SUCCEEDED(hRes));
 			

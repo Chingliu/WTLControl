@@ -40,13 +40,13 @@
     <IntDir>Debug\</IntDir>
     <OutDir>Debug\</OutDir>
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>G:\Project\ThirdPartLib\c\wtl\include;$(IncludePath)</IncludePath>
+    <IncludePath>E:\3PartLib\wtl\trunk\wtl\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <IntDir>Release\</IntDir>
     <OutDir>Release\</OutDir>
     <LinkIncremental>false</LinkIncremental>
-    <IncludePath>G:\Project\ThirdPartLib\c\wtl\include;$(IncludePath)</IncludePath>
+    <IncludePath>E:\3PartLib\wtl\trunk\wtl\include;$(IncludePath)</IncludePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -115,6 +115,9 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Controls\ColorButton.cpp" />
+    <ClCompile Include="Controls\DUIButton.cpp" />
+    <ClCompile Include="Controls\SkinManager.cpp" />
+    <ClCompile Include="Controls\SkinWndHelper.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
@@ -126,7 +129,12 @@
     <ClInclude Include="Controls\AppBar.h" />
     <ClInclude Include="Controls\CheckBox.h" />
     <ClInclude Include="Controls\ColorButton.h" />
+    <ClInclude Include="Controls\CTreeCtrlEx.h" />
+    <ClInclude Include="Controls\DUIButton.h" />
     <ClInclude Include="Controls\ListViewCtrlEx.h" />
+    <ClInclude Include="Controls\RadioButton.h" />
+    <ClInclude Include="Controls\SkinManager.h" />
+    <ClInclude Include="Controls\SkinWndHelper.h" />
     <ClInclude Include="Controls\StaticEx.h" />
     <ClInclude Include="MainDlg.h" />
     <ClInclude Include="MemLeakCheck.h" />
